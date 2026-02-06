@@ -1,13 +1,15 @@
 from __future__ import annotations
 
+import argparse
 import json
 from datetime import datetime, timezone
 
 from baseline_auditor.checks import admins, defender, firewall, rdp, smb, system
+from baseline_auditor.reporting import to_markdown
 from baseline_auditor.scoring import compute_summary
 
 
-def main() -> None:
+def build_report() -> dict:
     findings = [
         system.run(),
         firewall.run(),
@@ -19,7 +21,7 @@ def main() -> None:
 
     summary = compute_summary(findings)
 
-    report = {
+    return {
         "meta": {
             "tool": "baseline-auditor",
             "timestamp_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -28,7 +30,18 @@ def main() -> None:
         "findings": findings,
     }
 
-    print(json.dumps(report, indent=2))
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Windows baseline security auditor")
+    parser.add_argument("--format", choices=["json", "md"], default="json", help="Output format")
+    args = parser.parse_args()
+
+    report = build_report()
+
+    if args.format == "md":
+        print(to_markdown(report))
+    else:
+        print(json.dumps(report, indent=2))
 
 
 if __name__ == "__main__":
