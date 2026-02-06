@@ -3,11 +3,11 @@ from __future__ import annotations
 import json
 from datetime import datetime, timezone
 
-from baseline_auditor.checks import defender, firewall, rdp, smb, system
+from baseline_auditor.checks import admins, defender, firewall, rdp, smb, system
 
 
 def main() -> None:
-    findings = [system.run(), firewall.run(), defender.run(), rdp.run(), smb.run()]
+    findings = [system.run(), firewall.run(), defender.run(), rdp.run(), smb.run(), admins.run()]
 
     report = {
         "meta": {
