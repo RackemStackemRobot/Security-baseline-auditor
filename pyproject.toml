@@ -10,3 +10,4 @@ requires-python = ">=3.10"
 
 [project.scripts]
 baseline-auditor = "baseline_auditor.main:main"
+
