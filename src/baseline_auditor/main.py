@@ -1,0 +1,20 @@
+from __future__ import annotations
+
+import json
+from datetime import datetime, timezone
+
+
+def main() -> None:
+    report = {
+        "meta": {
+            "tool": "baseline-auditor",
+            "timestamp_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        },
+        "summary": {"score": 0, "grade": "n/a"},
+        "findings": [],
+    }
+    print(json.dumps(report, indent=2))
+
+
+if __name__ == "__main__":
+    main()
