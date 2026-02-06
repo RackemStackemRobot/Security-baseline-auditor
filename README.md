@@ -21,3 +21,4 @@ If you installed it as a CLI:
 
 ## Notes
 This is a defensive auditing tool. It does not exploit systems or perform offensive actions.
+
