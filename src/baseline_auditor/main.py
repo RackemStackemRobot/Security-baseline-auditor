@@ -5,9 +5,11 @@ from datetime import datetime, timezone
 
 from baseline_auditor.checks import system
 
+from baseline_auditor.checks import firewall, system
+
 
 def main() -> None:
-    findings = [system.run()]
+    findings = [system.run(), firewall.run()]
 
     report = {
         "meta": {
